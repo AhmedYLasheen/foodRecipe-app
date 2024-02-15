@@ -46,6 +46,7 @@
 
  .header-container{
   background-image: url(./assets/images/Rectangle.png);
+  background-size: cover;
   color: white;
  }
 
