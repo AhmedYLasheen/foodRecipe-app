@@ -2,7 +2,7 @@ import React from 'react'
 import myImg from '../../../assets/images/myimg.png'
 
 export default function Navbar({ adminData }) {
-  console.log(adminData);
+  // console.log(adminData);
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light rounded-3 ">
