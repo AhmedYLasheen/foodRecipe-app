@@ -23,9 +23,9 @@ export default function ChangePass({ handleClose }) {
       .then((response) => {
         
         // console.log(response);
-        setTimeout(()=>toast.success("Change success",{
+        toast.success("Change success",{
           position:"top-right"
-        }),100);
+        }),
 
       
 

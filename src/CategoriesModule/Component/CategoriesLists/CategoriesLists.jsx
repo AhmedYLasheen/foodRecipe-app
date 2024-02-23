@@ -10,13 +10,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 
+
 export default function CategoriesLists() {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setModelState(false);
   const handleShow = () => setShow(true);
   const [modelState, setModelState] = useState("")
-  const [categoriesId, setcategoriesId] = useState()
+  const [categoriesId, setcategoriesId] = useState(0)
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -29,10 +30,10 @@ export default function CategoriesLists() {
           { headers: { Authorization: token } });
       getList();
       handleClose();
+      toast.success("Add success", {
+        position: "top-right"
+      });
 
-      setTimeout(()=>toast.success("Add success",{
-        position:"top-right"
-      }),100);
       // console.log(response);
 
     } catch (error) {
@@ -48,9 +49,9 @@ export default function CategoriesLists() {
           { headers: { Authorization: token } });
       getList();
       handleClose();
-      setTimeout(()=>toast.success("Update success",{
-        position:"top-right"
-      }),100);
+      toast.success("Update success", {
+        position: "top-right"
+      });
       // console.log(response);
 
     } catch (error) {
@@ -94,16 +95,16 @@ export default function CategoriesLists() {
       .then((response) => {
         getList();
         handleClose();
-        setTimeout(()=>toast.success("Delete success",{
-          position:"top-right"
-        }),100);
+        toast.success("Delete success", {
+          position: "top-right"
+        });
         // console.log(response);
       })
       .catch((error) => console.log(error))
   }
 
 
- 
+
 
   useEffect(() => {
     getList();
@@ -117,7 +118,7 @@ export default function CategoriesLists() {
         description="You can now add your items that any user can order it from the Application and you can edit"
       />
 
-<ToastContainer/>
+      <ToastContainer autoClose={2000} />
 
       <Modal show={modelState === "add"} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -184,8 +185,8 @@ export default function CategoriesLists() {
           </form>
         </Modal.Body>
       </Modal>
-      
-   
+
+
       <Modal show={modelState === "delete"} onHide={handleClose}>
         <Modal.Header closeButton className='color-danger'>
         </Modal.Header>
@@ -196,7 +197,7 @@ export default function CategoriesLists() {
 
           />
           <div className='delete-button d-flex justify-content-end p-3'>
-            <button onClick={()=>{handleDelete(categoriesId)} } className='btn btn-danger'>Delete this item</button>
+            <button onClick={() => { handleDelete(categoriesId) }} className='btn btn-danger'>Delete this item</button>
           </div>
         </Modal.Body>
       </Modal>
@@ -231,18 +232,18 @@ export default function CategoriesLists() {
                     <th scope="row">{cat.id}</th>
                     <td>{cat.name}</td>
                     <td>
-                      <button  className='btn btn-warning mx-3 '  onClick={() =>
-                         {handleModelUpdate(),
+                      <button className='btn btn-warning mx-3 ' onClick={() => {
+                        handleModelUpdate(),
                         setcategoriesId(cat.id)
-                        }}>Update</button>
-                      <button 
-                       className='btn btn-danger'
-                       onClick={() =>
-                         {handleModelDelete(),
-                        setcategoriesId(cat.id)
+                      }}>Update</button>
+                      <button
+                        className='btn btn-danger'
+                        onClick={() => {
+                          handleModelDelete(),
+                          setcategoriesId(cat.id)
                         }}>Delete</button>
                     </td>
-                    
+
                   </tr>
                 )}
 

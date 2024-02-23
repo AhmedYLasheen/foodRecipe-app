@@ -16,14 +16,7 @@ import CategoriesLists from './CategoriesModule/Component/CategoriesLists/Catego
 import { jwtDecode } from 'jwt-decode'
 import ProtectedRoute from './SharedModule/Components/ProtectedRoute/ProtectedRoute'
 import ResetPass from './AuthModule/Components/ResetPass/ResetPass'
-
-
-
-
-
-
-
-
+import RecipesData from './RecipesModule/Components/RecipesData/RecipesData'
 
 
 
@@ -65,13 +58,19 @@ function App() {
       children: [
         { index: true, element: <Home  adminData={adminData}  /> },
         { path: 'recipes', element: <RecipesList /> },
+        { path: 'recipe-data', element: <RecipesData /> },
         { path: 'users', element: <UsersList /> },
         { path: 'categories', element: <CategoriesLists /> },
       ],
     },
   ]);
 
-  return < RouterProvider router={routes} />
+  
+  return  < RouterProvider router={routes} /> 
+  
+  
+
+  
   
 }
 
