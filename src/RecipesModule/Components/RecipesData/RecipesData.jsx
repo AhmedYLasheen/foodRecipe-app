@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import RecipesHeader from "../../../UserModule/Components/RecipesHeader/RecipesHeader";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export default function RecipesData() {
   const {
@@ -10,12 +14,14 @@ export default function RecipesData() {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   const appendToFormData=(data)=>{
-    let formData = new FormData ();
+    let formData = new FormData();
     formData.append('name',data.name);
-    formData.append('price ',data.price );
-    formData.append('description ',data.description );
-    formData.append('tagId ',data.tagId );
+    formData.append('price',data.price );
+    formData.append('description',data.description );
+    formData.append('tagId',data.tagId );
     formData.append('recipeImage',data.recipeImage[0]);
     formData.append('categoriesIds',data.categoriesIds);
     return formData;
@@ -25,16 +31,18 @@ export default function RecipesData() {
     let token = localStorage.getItem("adminToken");
     // console.log(data);
     try {
-      let categoriesList = await axios.post(
+      let addRecipese = await axios.post(
       'https://upskilling-egypt.com:443/api/v1/Recipe/',recipeDataForm,
-        { headers: { Authorization: token } }
+        { headers: { Authorization: token } },
+        // navigate("/dashboard/recipes"),
       );
+      console.log(addRecipese.data.message);
+      toast.success(addRecipese.data.message);
+
 
     } catch (error) {
       console.log(error);
     }
-   
-
   };
 
   const [categoriesList, setcategoriesList] = useState([]);
@@ -74,7 +82,7 @@ export default function RecipesData() {
 
   return (
     <>
-      RecipesData
+      <ToastContainer autoClose={2000} />
       <RecipesHeader />
       <div className="container">
         <form onSubmit={handleSubmit(onSubmitAdd)}>
@@ -95,7 +103,7 @@ export default function RecipesData() {
           </div>
           <div className="input-group mb-3">
             <select className="form-select" aria-label="Default select example"
-              {...register("tagId   ", {
+              {...register("tagId", {
                 required: "tag  is required",
               })}
               >
@@ -134,7 +142,7 @@ export default function RecipesData() {
         
           <div className="input-group mb-3">
             <select className="form-select" aria-label="Default select example"
-              {...register("categoriesIds  ", {
+              {...register("categoriesIds", {
                 required: "categories is required",
               })}
               >
@@ -162,7 +170,7 @@ export default function RecipesData() {
               className="form-control"
               
               {...register("recipeImage", {
-                required: "recipeImage  is required",
+               
               })}
             />
           </div>
