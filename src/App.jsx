@@ -17,6 +17,7 @@ import { jwtDecode } from 'jwt-decode'
 import ProtectedRoute from './SharedModule/Components/ProtectedRoute/ProtectedRoute'
 import ResetPass from './AuthModule/Components/ResetPass/ResetPass'
 import RecipesData from './RecipesModule/Components/RecipesData/RecipesData'
+import Register from './AuthModule/Components/Register/Register'
 
 
 
@@ -27,7 +28,7 @@ function App() {
     let encodedToken = localStorage.getItem("adminToken");
     let decodedToken = jwtDecode(encodedToken);
     setAdminData(decodedToken);
-    // console.log(decodedToken);
+    // console.log(adminData);
   }
 
   useEffect(() => {
@@ -45,6 +46,7 @@ function App() {
         { path: 'login', element: <Login saveAdminData={saveAdminData} /> },
         { path: 'forgot-Pass', element: <ForgotPass /> },
         { path: 'reset-Pass', element: <ResetPass/> },
+        { path: 'register', element: <Register/> },
       ],
     },
     {
@@ -58,7 +60,7 @@ function App() {
       children: [
         { index: true, element: <Home  adminData={adminData}  /> },
         { path: 'recipes', element: <RecipesList /> },
-        { path: 'recipe-data', element: <RecipesData /> },
+        { path: 'recipe-data/:id?', element: <RecipesData /> },
         { path: 'users', element: <UsersList /> },
         { path: 'categories', element: <CategoriesLists /> },
       ],

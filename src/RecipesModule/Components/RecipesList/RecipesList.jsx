@@ -7,7 +7,8 @@ import Modal from "react-bootstrap/Modal";
 import DeleteModal from "../../../SharedModule/Components/DeleteModal/DeleteModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function RecipesList() {
   const [show, setShow] = useState(false);
@@ -21,6 +22,8 @@ export default function RecipesList() {
   const navigateToRecipeData = () => {
     navigate("/dashboard/recipe-data");
   };
+
+
 
   const [recipesList, setrecipesList] = useState([]);
   const getList = async () => {
@@ -62,7 +65,7 @@ export default function RecipesList() {
   }, []);
   return (
     <>
-      <ToastContainer autoClose={2000} />
+      <ToastContainer />
       <Header
         title={"Recipes Items"}
         description="You can now add your items that any user can order it from the Application and you can edit"
@@ -128,12 +131,14 @@ export default function RecipesList() {
                       <img src={noData} className=" table-user-img" />
                     )}
                   </td>
-                  <td>{recipe.category[0].name}</td>
+                  <td>{recipe.category[0]?.name}</td>
                   <td>
-                    <i
-                      className="fas fa-edit text-warning mx-2 "
-                      aria-hidden="true"
-                    ></i>
+                 
+                     <Link to={`/dashboard/recipe-data/${recipe.id}`} >
+                      <i className="fas fa-edit text-warning mx-2 "></i>
+                      </Link>
+
+                    <button  className="border-0 bg-transparent">
                     <i
                       onClick={() => {
                         handleShow(), setcategoriesId(recipe.id);
@@ -141,6 +146,7 @@ export default function RecipesList() {
                       className="fas fa-trash text-danger mx-2 "
                       aria-hidden="true"
                     ></i>
+                    </button>
                   </td>
                 </tr>
               ))}

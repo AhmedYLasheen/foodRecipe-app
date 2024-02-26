@@ -2,18 +2,53 @@ import React, { useEffect, useState } from "react";
 import RecipesHeader from "../../../UserModule/Components/RecipesHeader/RecipesHeader";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
 export default function RecipesData() {
+  let token = localStorage.getItem("adminToken");
+  let pass = useParams()
+  // console.log(pass.id);
+  
+  let [recipesList, setrecipesList] = useState([]);
+  const getList = async () => {
+   
+    try {
+      const response = await axios.get(
+        `https://upskilling-egypt.com:443/api/v1/Recipe/${pass.id}`,
+        { headers: { Authorization: token } }
+      );
+          //  setrecipesList(response.data);
+      
+         setValue("name",response.data.name);
+         setValue("price",response.data.price);
+         setValue("description",response.data.description);
+         setValue("tagId",response.data.tag.name);
+         setValue("categoriesIds",response.data.category[0].name);
+         setValue("recipeImage",response.data.recipeImage[0]);
+
+          
+          // console.log(recipesList.name);
+    } catch (error) {
+      // console.log(error);
+      toast.error(error)
+
+    }
+  };
+
+  
   const {
     register,
     handleSubmit,
+    reset,
+    setValue,
     formState: { errors },
   } = useForm();
 
+
+  
   const navigate = useNavigate();
 
   const appendToFormData=(data)=>{
@@ -27,27 +62,55 @@ export default function RecipesData() {
     return formData;
   }
   const onSubmitAdd =async (data) => { 
+    
     let recipeDataForm= appendToFormData(data);
-    let token = localStorage.getItem("adminToken");
+    
     // console.log(data);
     try {
       let addRecipese = await axios.post(
       'https://upskilling-egypt.com:443/api/v1/Recipe/',recipeDataForm,
         { headers: { Authorization: token } },
-        // navigate("/dashboard/recipes"),
+      
       );
-      console.log(addRecipese.data.message);
-      toast.success(addRecipese.data.message);
+      // console.log(addRecipese.data.message);
+      setTimeout(()=>toast.success(addRecipese.data.message,{
+      }),100);
+      navigate("/dashboard/recipes");
 
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      toast.error(error)
+
+    }
+  };
+
+  const onSubmitUpdate =async (data) => { 
+    
+    let recipeDataForm= appendToFormData(data);
+    // console.log(data);
+    try {
+      let updateRecipese = await axios.put(
+      `https://upskilling-egypt.com:443/api/v1/Recipe/${pass.id}`,recipeDataForm,
+        { headers: { Authorization: token } },
+        
+      );
+      console.log(updateRecipese.data.message);
+      setTimeout(()=>toast.success("Update success",{
+      }),100);
+      navigate("/dashboard/recipes");
+
+
+    } catch (error) {
+      // console.log(error);
+      toast.error(error)
+
     }
   };
 
   const [categoriesList, setcategoriesList] = useState([]);
   const getCategoriesList = async () => {
-    let token = localStorage.getItem("adminToken");
+    
     try {
       let categoriesList = await axios.get(
         "https://upskilling-egypt.com:443/api/v1/Category/?pageSize=10&pageNumber=1",
@@ -56,13 +119,15 @@ export default function RecipesData() {
       setcategoriesList(categoriesList.data.data);
     //   console.log(categoriesList.data.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      toast.error(error)
+
     }
   };
 
   const [tagsList, setTagsList] = useState([]);
   const getTagsList = async () => {
-    let token = localStorage.getItem("adminToken");
+   
     try {
       let categoriesList = await axios.get(
         "https://upskilling-egypt.com:443/api/v1/tag/",
@@ -71,21 +136,23 @@ export default function RecipesData() {
       setTagsList(categoriesList.data);
       // console.log(categoriesList.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      toast.error(error)
     }
   };
 
   useEffect(() => {
+    getList();
     getCategoriesList();
-    getTagsList();
+    getTagsList(); 
   }, []);
 
   return (
     <>
-      <ToastContainer autoClose={2000} />
+      <ToastContainer  />
       <RecipesHeader />
       <div className="container">
-        <form onSubmit={handleSubmit(onSubmitAdd)}>
+        <form onSubmit={handleSubmit(pass.id? onSubmitUpdate : onSubmitAdd)}>
           <div className="input-group mb-3">
             <input
               type="text"
@@ -184,7 +251,7 @@ export default function RecipesData() {
             <textarea
               className="form-control"
               placeholder="description  "
-              {...register("description  ", {
+              {...register("description", {
                 required: "description is required",
               })}
             ></textarea>
@@ -198,7 +265,7 @@ export default function RecipesData() {
           </div>
 
           <div className="d-flex justify-content-end">
-            <button className="btn btn-success">Save</button>
+            <button className="btn btn-success">{pass.id?"Update":'Save'}</button>
           </div>
         </form>
       </div>

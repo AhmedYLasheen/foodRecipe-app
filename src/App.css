@@ -5,13 +5,18 @@
 .overlay{
   background: linear-gradient(45deg, rgba(47, 140, 96, 0.43),rgba(0, 0, 0, 0.62));
 }
+.sidebar{
+  background-color: #1f263e;
+  border-top-right-radius: 58px;
 
+}
 .sidebar-container .ps-sidebar-container {
   background-color: #1f263e;
   color: white;
   height: 100vh;
   /* border-right: none !important; */
   border-top-right-radius: 58px;
+  /* position: fixed; */
 }
 
 .sidebar-container .ps-sidebar-container  .ps-menu-button:hover{
@@ -37,6 +42,7 @@
  .ps-menu-button .ps-menu-icon img{
   width: 100px !important;
   margin-left: 5px;
+  
  }
 
  .imgCon .myImg{
@@ -56,4 +62,19 @@
 }
 .table-user-img{
   height: 60px !important;
+}
+
+
+
+.test-test{
+
+  width: 150px;
+  height: 80px;
+  position: absolute;
+  right: 40px;
+  top: 30px;
+  border-radius: 20px;
+  padding: 10px;
+  /* display: none; */
+  
 }

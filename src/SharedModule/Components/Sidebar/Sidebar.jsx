@@ -46,7 +46,7 @@ export default function SideBar() {
 
 
     <Sidebar collapsed={isCollapsed}>
-        <Menu>
+        <Menu className=''>
           <MenuItem className='togglerImg'
             onClick={toggleCollapse}
             icon={<img className='w-100' src={toggler} />}

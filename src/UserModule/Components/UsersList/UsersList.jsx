@@ -5,7 +5,9 @@ import noData from "../../../assets/images/nullItem1.png";
 
 export default function UsersList() {
   const [usersList, setusersList] = useState([]);
-  
+  const [buttonStyle, setbuttonStyle] = useState("second")
+  const [actionForm, setactionFootm] = useState("d-none")
+
 
   const getList = async () => {
     let token = localStorage.getItem("adminToken");
@@ -43,6 +45,7 @@ export default function UsersList() {
                   <th scope="col">Image</th>
                   <th scope="col">Email</th>
                   <th scope="col">Phone</th>
+                  <th scope="col"></th>
                  
 
                 </tr>
@@ -62,9 +65,15 @@ export default function UsersList() {
                     </td>
                    <td>{user.email}</td>
                    <td>{user.phoneNumber}</td>
-                 </tr>
-                  
+                   <td className="td-test position-relative"><button onClick={()=>setactionFootm("d-block")} className="border-0 bg-body"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                   </td> 
+                   {/* <div className={`test-test bg-danger ${actionForm}`}>
+                     <td>{user.userName}</td> 
+                     <button>delete</button>
+                    </div>   */}
+                 </tr>   
                   )}
+                     
                 
               </tbody>
   </table>

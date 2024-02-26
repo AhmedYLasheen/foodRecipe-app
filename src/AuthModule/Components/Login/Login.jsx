@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Login({saveAdminData}) {
+export default function Login({ saveAdminData }) {
   const {
     register,
     handleSubmit,
@@ -18,14 +18,17 @@ export default function Login({saveAdminData}) {
     axios
       .post("https://upskilling-egypt.com:443/api/v1/Users/Login", data)
       .then((response) => {
-        setTimeout(()=>toast.success("LogIn success",{
-          position:"bottom-right"
-        }),100);
-        localStorage.setItem('adminToken',response.data.token);
+        setTimeout(
+          () =>
+            toast.success("LogIn success", {
+              position: "bottom-right",
+            }),
+          100
+        );
+        localStorage.setItem("adminToken", response.data.token);
         saveAdminData();
         // console.log(response.data.token);
         navigate("/dashboard");
-        
       })
       .catch((error) => {
         // console.log(error.response.data.message);
@@ -48,7 +51,10 @@ export default function Login({saveAdminData}) {
                 </div>
                 <h4 className="">Log In</h4>
                 <p>Welcome Back! Please enter your details</p>
-                <form className="d-flex flex-column" onSubmit={handleSubmit(onSupmit)}>
+                <form
+                  className="d-flex flex-column"
+                  onSubmit={handleSubmit(onSupmit)}
+                >
                   <div className="input-group mb-3">
                     <span className="input-group-text" id="basic-addon1">
                       <i className="fa-regular fa-envelope"></i>
@@ -87,16 +93,25 @@ export default function Login({saveAdminData}) {
                     <span className="input-group-text">
                       <i className="fa-regular fa-eye"></i>
                     </span>
-
                   </div>
-                    {errors.password && (
-                      <span className="alert alert-danger ">
-                        {errors.password.message}
-                      </span>
-                    )}
-                    <div className="d-flex justify-content-end  pb-3">
-                      <Link to={'/forgot-Pass'} className="text-success ">Forgot Password</Link>
+                  {errors.password && (
+                    <span className="alert alert-danger ">
+                      {errors.password.message}
+                    </span>
+                  )}
+                  <div className="d-flex justify-content-between pb-4">
+                    <div className="">
+                      <Link to={"/register"} className="text-black ">
+                        {" "}
+                        Register Now
+                      </Link>
                     </div>
+                    <div className=" ">
+                      <Link to={"/forgot-Pass"} className="text-success ">
+                        Forgot Password
+                      </Link>
+                    </div>
+                  </div>
 
                   <button className="btn btn-success w-100">Login</button>
                 </form>
