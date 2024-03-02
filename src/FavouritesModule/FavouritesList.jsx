@@ -6,6 +6,7 @@ import noData from "../../src/assets/images/nullItem.png";
 
 export default function FavouritesList() {
   const [favList, setfavList] = useState([]);
+  // console.log(favList);
 
   const getList = async () => {
     let token = localStorage.getItem("adminToken");
@@ -15,8 +16,8 @@ export default function FavouritesList() {
         { headers: { Authorization: token } }
       );
 
-      setfavList(response.data.data);
-      // console.log(response.data.data);
+      setfavList(response?.data.data);
+      console.log(response.data.data);
     } catch (error) {
       console.log(error);
     }
@@ -29,13 +30,12 @@ export default function FavouritesList() {
     axios.delete(`https://upskilling-egypt.com:443/api/v1/userRecipe/${id}`,
      { headers: { Authorization: token } })
       .then((response) => {
-        
-        
+
         // toast.success("Delete From Favourites success", {
         //   position: "top-right"
         // });
         getList();
-        console.log(response);
+        // console.log(response);
       })
       .catch((error) => 
       console.log(error))
@@ -58,7 +58,7 @@ export default function FavouritesList() {
             <div key={fav.id} className="col-md-4">
               <div className="card m-3 position-relative">
               
-              <i onClick={()=>handleDelete(fav.recipe.id)} className="unFavItem fa-solid fa-heart-circle-minus   d-flex justify-content-end"></i>
+              <i onClick={()=>handleDelete(fav.recipe?.id)} className="unFavItem fa-solid fa-heart-circle-minus text-danger   d-flex justify-content-end"></i>
               {fav.recipe.imagePath ? (
                       <img
                         src={`https://upskilling-egypt.com/${fav.recipe?.imagePath}`}
