@@ -18,6 +18,9 @@ export default function CategoriesLists() {
   const handleShow = () => setShow(true);
   const [modelState, setModelState] = useState("")
   const [categoriesId, setcategoriesId] = useState(0)
+  const [pagesArray, setpagesArray] = useState([]);
+  const [searchName, setsearchName] = useState("");
+
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -61,12 +64,24 @@ export default function CategoriesLists() {
 
 
   const [categoriesList, setcategoriesList] = useState([]);
-  const getList = async () => {
+  const getList = async (pageNo, pageSize, name) => {
     let token = localStorage.getItem('adminToken');
     try {
       let categoriesList = await axios.get
-        ('https://upskilling-egypt.com:443/api/v1/Category/?pageSize=10&pageNumber=1',
-          { headers: { Authorization: token } });
+        ('https://upskilling-egypt.com:443/api/v1/Category/',
+          { headers: { Authorization: token },
+          params: {
+            pageNumber: pageNo,
+            pageSize: pageSize,
+            userName: name,
+          
+          },
+         });
+         setpagesArray(
+          Array(categoriesList.data.totalNumberOfPages)
+            .fill()
+            .map((_, i) => i + 1)
+        );
       setcategoriesList(categoriesList.data.data);
       // console.log(categoriesList);
     } catch (error) {
@@ -89,9 +104,9 @@ export default function CategoriesLists() {
 
   const handleDelete = (id) => {
     let token = localStorage.getItem('adminToken');
-    // console.log(id);
-    // console.log(token);
-    axios.delete(`https://upskilling-egypt.com:443/api/v1/Category/${id}`, { headers: { Authorization: token } })
+   
+    axios.delete(`https://upskilling-egypt.com:443/api/v1/Category/${id}`,
+     { headers: { Authorization: token } })
       .then((response) => {
         getList();
         handleClose();
@@ -103,11 +118,14 @@ export default function CategoriesLists() {
       .catch((error) => console.log(error))
   }
 
-
+  const getNameValue = (input) => {
+    setsearchName(input.target.value);
+    getList(1,5, input.target.value);
+  };
 
 
   useEffect(() => {
-    getList();
+    getList(1,8);
   }, [])
 
   return (
@@ -215,6 +233,16 @@ export default function CategoriesLists() {
 
           </div>
         </div>
+        <div className="row p-3 justify-content-center">
+        <div className="col-md-8">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="search by Name"
+            onChange={getNameValue}
+          />
+        </div>
+      </div>
         <div className="table-container text-center">
           {categoriesList.length > 0 ?
             <table className="table">
@@ -250,6 +278,28 @@ export default function CategoriesLists() {
               </tbody>
             </table>
             : <img src={noData} />}
+                  <nav aria-label="Page navigation example">
+              <ul className="pagination">
+                <li className="page-item">
+                  <a className="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                {pagesArray.map((pageNo) => 
+                  <li onClick={()=>getList(pageNo,7)} key={pageNo} className="page-item">
+                    <a className="page-link" >
+                      {pageNo}
+                    </a>
+                  </li>
+                )}
+
+                <li className="page-item">
+                  <a className="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
         </div>
       </div>
     </>

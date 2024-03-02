@@ -9,8 +9,7 @@ import ChangePass from '../../../AuthModule/Components/ChangePass/ChangePass';
 
 
 
-export default function SideBar() {
-
+export default function SideBar({adminData}) {
   
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -53,9 +52,12 @@ export default function SideBar() {
           ></MenuItem>
 
           <MenuItem icon={<i className="fa fa-home" ></i>} component={<Link to="/dashboard" />}> Home</MenuItem>
-          <MenuItem icon={<i className="fa fa-user" ></i>} component={<Link to="/dashboard/users" />}> Users</MenuItem>
+          {adminData?.userGroup=="SuperAdmin"?<MenuItem icon={<i className="fa fa-user" ></i>} component={<Link to="/dashboard/users" />}> Users</MenuItem>:""}
+          {adminData?.userGroup=="SuperAdmin"?<MenuItem icon={<i className="fa-solid fa-rectangle-list"></i>} component={<Link to="/dashboard/categories" />}> Categories</MenuItem>:""}
           <MenuItem icon={<i className="fa-solid fa-clipboard"></i>} component={<Link to="/dashboard/recipes" />}> Recipes</MenuItem>
-          <MenuItem icon={<i className="fa-solid fa-rectangle-list"></i>} component={<Link to="/dashboard/categories" />}> Categories</MenuItem>
+          {adminData?.userGroup=="SystemUser"? <MenuItem icon={<i className="fa-solid fa-heart"></i>} component={<Link to="/dashboard/favourites" />}> Favourites</MenuItem>:""}
+
+
           <MenuItem onClick={handleShow} icon={<i className="fa-solid fa-unlock-keyhole"></i>} > Change Password</MenuItem>
           <MenuItem icon={<i className="fa-solid fa-right-from-bracket"></i>} onClick={logOut}> LogOut</MenuItem>
         </Menu>

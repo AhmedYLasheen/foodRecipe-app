@@ -27,7 +27,7 @@ export default function Register() {
     return formData;
   };
 
-
+ const navigate =useNavigate();
   const [loding, setloding] = useState(false);
 
   const onSubmit =async (data) => { 
@@ -41,7 +41,7 @@ export default function Register() {
       console.log(response);
       setloding(false);
     // toast.success(addRecipese.data.message,{})
-    //   navigate("/dashboard/recipes");
+      navigate("/verifyRegiste");
 
 
     } catch (error) {
@@ -53,7 +53,7 @@ export default function Register() {
   };
   return (
     <>
-      <div className="Auth-container vh-100 ">
+      <div className="Register-container vh-100 ">
         <div className="overlay container-fluid vh-100">
           {/* <ToastContainer /> */}
           <div className="row vh-100 justify-content-center align-items-center">

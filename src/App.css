@@ -3,7 +3,7 @@
   background-size: cover;
 }
 .overlay{
-  background: linear-gradient(45deg, rgba(47, 140, 96, 0.43),rgba(0, 0, 0, 0.62));
+  background: linear-gradient(45deg, rgba(47, 140, 96, 0.7),rgba(0, 0, 0, 0.62));
 }
 .sidebar{
   background-color: #1f263e;
@@ -77,4 +77,13 @@
   padding: 10px;
   /* display: none; */
   
+}
+i, a {
+  cursor: pointer;
+}
+
+.unFavItem{
+  position: absolute;
+  top: 8px;
+  right: 7px;
 }

@@ -1,38 +1,32 @@
-import React, { useState } from "react";
-import logo from "../../../assets/images/logo.png";
-import { useForm } from "react-hook-form";
 import axios from "axios";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import logo from "../../../assets/images/logo.png";
 
-export default function Login({ saveAdminData }) {
-  const [showPass, setshowPass] = useState('password')
+export default function VerifyRegister() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
-
+ 
+  const navigate =useNavigate();
   const onSupmit = (data) => {
     axios
-      .post("https://upskilling-egypt.com:443/api/v1/Users/Login", data)
+      .put('https://upskilling-egypt.com:443/api/v1/Users/verify', data)
       .then((response) => {
-        setTimeout(
-          () =>
-            toast.success("LogIn success", {
-              position: "bottom-right",
-            }),
-          100
-        );
-        localStorage.setItem("adminToken", response.data.token);
-        saveAdminData();
-        // console.log(response.data.token);
-        navigate("/dashboard");
+        setTimeout(()=>toast.success("Verify success",{
+          position:"bottom-right"
+        }),100);
+        navigate("/login");
+ 
       })
+      
       .catch((error) => {
-        // console.log(error.response.data.message);
+        // console.log(error);
         toast.error(error.response.data.message, {
           position: "top-center",
           theme: "colored",
@@ -40,7 +34,7 @@ export default function Login({ saveAdminData }) {
       });
   };
   return (
-    <>
+    <div>
       <div className="Auth-container vh-100 ">
         <div className="overlay container-fluid vh-100">
           <ToastContainer />
@@ -50,8 +44,11 @@ export default function Login({ saveAdminData }) {
                 <div className="logo-cont text-center mb-3 ">
                   <img src={logo} className="w-50" />
                 </div>
-                <h4 className="">Log In</h4>
-                <p>Welcome Back! Please enter your details</p>
+                <h5 className="">Verify Registe?</h5>
+                <p>
+                  No worries! Please enter your email and we will send a
+                  password reset link{" "}
+                </p>
                 <form
                   className="d-flex flex-column"
                   onSubmit={handleSubmit(onSupmit)}
@@ -79,49 +76,38 @@ export default function Login({ saveAdminData }) {
                       {errors.email.message}
                     </span>
                   )}
+
                   <div className="input-group mb-3">
                     <span className="input-group-text" id="basic-addon1">
-                      <i className="fa-solid fa-key"></i>
+                      <i className="fa-solid fa-lock"></i>
                     </span>
                     <input
-                      type={showPass}
+                      type="text"
                       className="form-control"
-                      placeholder="Password"
-                      {...register("password", {
-                        required: "Password is required",
+                      placeholder="OTP"
+                      {...register("code", {
+                        required: "OTP is required",
                       })}
                     />
-                    <span onClick={() => { setshowPass(showPass==='password'?'text':'password') }} className="input-group-text">
-                     
-                      <i className="fa-regular fa-eye"></i>
-                    </span>
                   </div>
-                  {errors.password && (
+                  {errors.code && (
                     <span className="alert alert-danger ">
-                      {errors.password.message}
+                      {errors.code.message}
                     </span>
                   )}
-                  <div className="d-flex justify-content-between pb-4">
-                    <div className="">
-                      <Link to={"/register"} className="text-black ">
-                        {" "}
-                        Register Now
-                      </Link>
-                    </div>
-                    <div className=" ">
-                      <Link to={"/forgot-Pass"} className="text-success ">
-                        Forgot Password
-                      </Link>
-                    </div>
+                  <div className="d-flex justify-content-end pb-3">
+                    <Link to={"/login"} className="text-success ">
+                      Back To Login{" "}
+                    </Link>
                   </div>
 
-                  <button   className="btn btn-success w-100">Login</button>
+                  <button className="btn btn-success w-100">Supmit</button>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

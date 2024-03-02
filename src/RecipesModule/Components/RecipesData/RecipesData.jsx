@@ -12,21 +12,22 @@ export default function RecipesData() {
   let pass = useParams()
   // console.log(pass.id);
   
-  let [recipesList, setrecipesList] = useState([]);
-  const getList = async () => {
+  
+  const getRecipeList = async () => {
    
     try {
       const response = await axios.get(
-        `https://upskilling-egypt.com:443/api/v1/Recipe/${pass.id}`,
+        `https://upskilling-egypt.com:443/api/v1/Recipe/${pass.id? pass.id:""}`,
         { headers: { Authorization: token } }
       );
           //  setrecipesList(response.data);
+          // console.log(response.data.tag.name);
       
          setValue("name",response.data.name);
          setValue("price",response.data.price);
          setValue("description",response.data.description);
-         setValue("tagId",response.data.tag.name);
-         setValue("categoriesIds",response.data.category[0].name);
+         setValue("tagId",response.data.tag.id);
+         setValue("categoriesIds",response.data.category[0].id);
          setValue("recipeImage",response.data.recipeImage[0]);
 
           
@@ -142,7 +143,7 @@ export default function RecipesData() {
   };
 
   useEffect(() => {
-    getList();
+    getRecipeList();
     getCategoriesList();
     getTagsList(); 
   }, []);
