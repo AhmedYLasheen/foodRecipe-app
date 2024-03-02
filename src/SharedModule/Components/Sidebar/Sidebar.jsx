@@ -55,7 +55,7 @@ export default function SideBar({adminData}) {
           {adminData?.userGroup=="SuperAdmin"?<MenuItem icon={<i className="fa fa-user" ></i>} component={<Link to="/dashboard/users" />}> Users</MenuItem>:""}
           {adminData?.userGroup=="SuperAdmin"?<MenuItem icon={<i className="fa-solid fa-rectangle-list"></i>} component={<Link to="/dashboard/categories" />}> Categories</MenuItem>:""}
           <MenuItem icon={<i className="fa-solid fa-clipboard"></i>} component={<Link to="/dashboard/recipes" />}> Recipes</MenuItem>
-          {adminData?.userGroup=="SystemUser"? <MenuItem icon={<i className="fa-solid fa-heart"></i>} component={<Link to="/dashboard/favourites" />}> Favourites</MenuItem>:""}
+          {adminData?.userGroup=="SystemUser"? <MenuItem icon={<i className="fa-solid text-danger fa-heart"></i>} component={<Link to="/dashboard/favourites" />}> Favourites</MenuItem>:""}
 
 
           <MenuItem onClick={handleShow} icon={<i className="fa-solid fa-unlock-keyhole"></i>} > Change Password</MenuItem>

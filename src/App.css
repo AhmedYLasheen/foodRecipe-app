@@ -86,4 +86,13 @@ i, a {
   position: absolute;
   top: 8px;
   right: 7px;
+  background-color: #ffffff;
+  border: 1px solid black   ;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.favItem:hover,.unFavItem:hover{
+  /* border: 1px solid rgb(222, 176, 176) ; */
+  padding: 4px;
 }

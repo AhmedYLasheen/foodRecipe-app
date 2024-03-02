@@ -252,7 +252,7 @@ export default function RecipesList() {
                          aria-hidden="true"
                        ></i>
                        </>
-                        :<i onClick={()=> sddToFav(recipe.id)} className="fa-regular fa-heart fa-2x  text-danger"></i> }
+                        :<i onClick={()=> sddToFav(recipe.id)} className="favItem fa-regular fa-heart fa-2x  text-danger"></i> }
                         
                  
                     
