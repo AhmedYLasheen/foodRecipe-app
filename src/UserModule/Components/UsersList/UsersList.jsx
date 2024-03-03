@@ -8,6 +8,7 @@ export default function UsersList() {
 
   const [searchName, setsearchName] = useState("");
   const [pagesArray, setpagesArray] = useState([]);
+  console.log(usersList);
 
 
 

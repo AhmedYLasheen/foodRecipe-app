@@ -1,11 +1,11 @@
 import React from 'react'
-import myImg from '../../../assets/images/myimg.png'
+import myImg from '../../../assets/images/avtar.png'
 
 export default function Navbar({ adminData }) {
-  // console.log(adminData);
+  console.log(adminData);
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-light rounded-4 ">
+      <nav className="navbar navbar-expand-lg bg-light rounded-4 m-3">
         <div className="container-fluid  ">
           {/* <a className="navbar-brand" href="#">Navbar</a> */}
 
@@ -14,14 +14,18 @@ export default function Navbar({ adminData }) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-center align-items-center">
 
               <div className='imgCon'>
-                <img className=' myImg' src={myImg} alt="" />
+                <img className=' myImg rounded-5' src={myImg} alt="" />
               </div>
 
-              <li className="nav-item  ">
+              <li className="nav-item mx-3 ">
                 <h6 className="nav-link ">{adminData?.userName}</h6>
+              </li>
+
+              <li className="nav-item  mx-3">
+                <i class="fa-solid fa-bell "></i>
               </li>
 
             </ul>
