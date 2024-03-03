@@ -126,7 +126,7 @@ export default function ChangePass({ handleClose }) {
               )}
 
 
-              <button className="btn btn-success w-100 button">Change Password</button>
+              <button className="btn btn-success w-100 button">CHange Password</button>
             </form>
           </div>
         </div>
