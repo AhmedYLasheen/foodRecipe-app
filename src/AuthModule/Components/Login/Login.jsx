@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Login({ saveAdminData }) {
+  const [loding, setloding] = useState(false);
   const [showPass, setshowPass] = useState('password')
   const {
     register,
@@ -16,6 +17,7 @@ export default function Login({ saveAdminData }) {
   const navigate = useNavigate();
 
   const onSupmit = (data) => {
+    setloding(true);
     axios
       .post("https://upskilling-egypt.com:443/api/v1/Users/Login", data)
       .then((response) => {
@@ -27,6 +29,7 @@ export default function Login({ saveAdminData }) {
           100
         );
         localStorage.setItem("adminToken", response.data.token);
+        setloding(false);
         saveAdminData();
         // console.log(response.data.token);
         navigate("/dashboard");
@@ -37,6 +40,7 @@ export default function Login({ saveAdminData }) {
           position: "top-center",
           theme: "colored",
         });
+        setloding(false);
       });
   };
   return (
@@ -115,7 +119,11 @@ export default function Login({ saveAdminData }) {
                     </div>
                   </div>
 
-                  <button   className="btn btn-success w-100">Login</button>
+                  {/* <button   className="btn btn-success w-100">Login</button> */}
+                  <button className=" button btn btn-success w-100 d-flex justify-content-center m-auto align-items-center">
+                    {loding?<i className="fa fa-spinner fa-spin" aria-hidden="true"></i>:"Login"}
+                    
+                    </button>
                 </form>
               </div>
             </div>

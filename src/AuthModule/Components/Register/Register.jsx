@@ -224,7 +224,7 @@ export default function Register() {
                   <div className="d-flex justify-content-end pb-3">
                     <Link to={'/login'} className="text-success ">Back To Login </Link>
                   </div>
-                  <button className="btn btn-success w-50 d-flex justify-content-center m-auto align-items-center">
+                  <button className="btn btn-success w-50 d-flex justify-content-center m-auto align-items-center button">
                     {loding?<i className="fa fa-spinner fa-spin" aria-hidden="true"></i>:"Register"}
                     </button>
                 </form >

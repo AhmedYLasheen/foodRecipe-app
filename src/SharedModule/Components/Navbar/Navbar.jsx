@@ -21,7 +21,7 @@ export default function Navbar({ adminData }) {
               </div>
 
               <li className="nav-item  ">
-                <a className="nav-link " href="#">{adminData?.userName}</a>
+                <h6 className="nav-link ">{adminData?.userName}</h6>
               </li>
 
             </ul>

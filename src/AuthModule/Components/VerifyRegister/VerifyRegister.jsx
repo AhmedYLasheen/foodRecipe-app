@@ -101,7 +101,7 @@ export default function VerifyRegister() {
                     </Link>
                   </div>
 
-                  <button className="btn btn-success w-100">Supmit</button>
+                  <button className="btn btn-success button w-100">Supmit</button>
                 </form>
               </div>
             </div>

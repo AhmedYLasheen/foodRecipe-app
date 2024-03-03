@@ -16,7 +16,7 @@ export default function RecipesList() {
   const handleShow = () => setShow(true);
   const [RecipesId, setcategoriesId] = useState(0);
 
-  let loginData = JSON.parse(localStorage.getItem('loginData'));
+  let loginData = JSON.parse(localStorage.getItem("loginData"));
   // console.log(loginData);
 
   const navigate = useNavigate();
@@ -59,7 +59,6 @@ export default function RecipesList() {
   };
 
   const handleDelete = (id) => {
-    
     axios
       .delete(`https://upskilling-egypt.com:443/api/v1/Recipe/${id}`, {
         headers: { Authorization: token },
@@ -93,14 +92,14 @@ export default function RecipesList() {
     try {
       let response = await axios.post(
         `https://upskilling-egypt.com:443/api/v1/userRecipe/`,
-        {"recipeId":recipeId},
+        { recipeId: recipeId },
         { headers: { Authorization: token } }
       );
-    
-        console.log(response);
+      toast.success("Add Favourites success");
+      // console.log(response);
     } catch (error) {
-      console.log(error);
-      // toast.error(error);
+      // console.log(error);
+      toast.error(error);
     }
   };
 
@@ -151,7 +150,7 @@ export default function RecipesList() {
           <h6>You can check all details</h6>
         </div>
         <div className="btn-container">
-          <button className="btn btn-success" onClick={navigateToRecipeData}>
+          <button className="btn btn-success button" onClick={navigateToRecipeData}>
             Add new Recipe
           </button>
         </div>
@@ -238,55 +237,78 @@ export default function RecipesList() {
                   </td>
                   <td>{recipe.category[0]?.name}</td>
                   <td>
-                    {loginData?.userGroup=='SuperAdmin'?
-                    <>
-                       <Link to={`/dashboard/recipe-data/${recipe.id}`}>
-                       <i className="fas fa-edit text-warning mx-2 "></i>
-                     </Link>
-    
-                       <i
-                         onClick={() => {
-                           handleShow(), setcategoriesId(recipe.id);
+                    {loginData?.userGroup == "SuperAdmin" ? (
+                      <div class="dropdwn">
+                        <a
+                          class="btn btn-light dropdown-toggle"
+                          href="#"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          
+                        </a>
+
+                        <ul class="dropdown-menu ">
+                          <div className="d-flex justify-content-center">
+                          <li>
+                          <Link to={`/dashboard/recipe-data/${recipe.id}`}>
+                         <i className="fas fa-edit text-warning mx-2 px-2 "></i>
+                      </Link>
+                          </li>
+                          <li>
+                          <i
+                          onClick={() => {
+                             handleShow(), setcategoriesId(recipe.id);
                          }}
-                         className="fas fa-trash text-danger  "
-                         aria-hidden="true"
-                       ></i>
-                       </>
-                        :<i onClick={()=> sddToFav(recipe.id)} className="favItem fa-regular fa-heart fa-2x  text-danger"></i> }
-                        
-                 
-                    
+                        className="fas fa-trash text-danger px-2 "
+                          aria-hidden="true"
+                         ></i>
+                          </li>
+                          </div>
+                         
+                         
+                        </ul>
+                      </div>
+                    ) : (
+                     
+                      <i
+                        onClick={() => sddToFav(recipe.id)}
+                        className="favItem fa-regular fa-heart fa-2x  text-danger"
+                      ></i>
+                    )}
                   </td>
                 </tr>
               ))}
             </tbody>
-           
           </table>
         ) : (
           <img src={noData} className="" />
         )}
-         <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                {pagesArray.map((pageNo) => 
-                  <li onClick={()=>getList(pageNo,5)} key={pageNo} className="page-item">
-                    <a className="page-link" >
-                      {pageNo}
-                    </a>
-                  </li>
-                )}
+        <nav aria-label="Page navigation example">
+          <ul className="pagination">
+            <li className="page-item">
+              <a className="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            {pagesArray.map((pageNo) => (
+              <li
+                onClick={() => getList(pageNo, 5)}
+                key={pageNo}
+                className="page-item"
+              >
+                <a className="page-link">{pageNo}</a>
+              </li>
+            ))}
 
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <li className="page-item">
+              <a className="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </>
   );

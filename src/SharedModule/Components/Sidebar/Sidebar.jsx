@@ -54,7 +54,7 @@ export default function SideBar({adminData}) {
           <MenuItem icon={<i className="fa fa-home" ></i>} component={<Link to="/dashboard" />}> Home</MenuItem>
           {adminData?.userGroup=="SuperAdmin"?<MenuItem icon={<i className="fa fa-user" ></i>} component={<Link to="/dashboard/users" />}> Users</MenuItem>:""}
           {adminData?.userGroup=="SuperAdmin"?<MenuItem icon={<i className="fa-solid fa-rectangle-list"></i>} component={<Link to="/dashboard/categories" />}> Categories</MenuItem>:""}
-          <MenuItem icon={<i className="fa-solid fa-clipboard"></i>} component={<Link to="/dashboard/recipes" />}> Recipes</MenuItem>
+          <MenuItem icon={<i className="fas fa-utensils"></i>} component={<Link to="/dashboard/recipes" />}> Recipes</MenuItem>
           {adminData?.userGroup=="SystemUser"? <MenuItem icon={<i className="fa-solid text-danger fa-heart"></i>} component={<Link to="/dashboard/favourites" />}> Favourites</MenuItem>:""}
 
 
