@@ -33,7 +33,7 @@ export default function SideBar({adminData}) {
   }
   return (
     <>
-    <div className="sidebar-container ">
+    <div className="sidebar-container  ">
       
   
       <Modal show={show} onHide={handleClose}>

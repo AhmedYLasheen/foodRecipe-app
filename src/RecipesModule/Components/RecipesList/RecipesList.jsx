@@ -8,6 +8,7 @@ import DeleteModal from "../../../SharedModule/Components/DeleteModal/DeleteModa
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
+import PreLoader from "../../../SharedModule/PreLoader/PreLoader";
 
 export default function RecipesList() {
   const [show, setShow] = useState(false);
@@ -283,7 +284,8 @@ export default function RecipesList() {
             </tbody>
           </table>
         ) : (
-          <img src={noData} className="" />
+          // <img src={noData} className="" />
+          <PreLoader/>
         )}
         <nav aria-label="Page navigation example">
           <ul className="pagination">

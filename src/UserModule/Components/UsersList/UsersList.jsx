@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react";
 import Header from "../../../SharedModule/Components/Header/Header";
 import axios from "axios";
 import noData from "../../../assets/images/nullItem1.png";
+import PreLoader from "../../../SharedModule/PreLoader/PreLoader";
 
 export default function UsersList() {
   const [usersList, setusersList] = useState([]);
 
   const [searchName, setsearchName] = useState("");
   const [pagesArray, setpagesArray] = useState([]);
+  const [loding, setloding] = useState(false);
+
   console.log(usersList);
 
 
 
   const getList = async (pageNo, pageSize, name) => {
+    // setloding(true);
     let token = localStorage.getItem("adminToken");
     try {
       const response = await axios.get(
@@ -31,6 +35,7 @@ export default function UsersList() {
           .map((_, i) => i + 1)
       );
       setusersList(response.data.data);
+      setloding(true);
       // console.log(response.data.data);
    
 
@@ -49,7 +54,7 @@ export default function UsersList() {
     getList(1,8);
   }, []);
 
-  return (
+  return  (
     <>
       <Header
         title={"Users list"}
@@ -65,72 +70,73 @@ export default function UsersList() {
           />
         </div>
       </div>
-<div className="table-container px-4 my-3 text-center">
-  {usersList.length > 0 ?
-  <table className="table">
-       <thead>
-                <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col"> Name</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Phone</th>
-                  <th scope="col"></th>
-                 
-
-                </tr>
-              </thead>
-
-              <tbody className="">
-                
-                  {usersList.map((user)=>
-                   <tr className="" key={user.id}>
-                   <th scope="row">{user.id}</th>
-                   <td >{user.userName}</td>
-                   <td className="">
+     {loding? 
+     <div className="table-container px-4 my-3 text-center">
+     {usersList.length > 0 ?
+     <table className="table">
+          <thead>
+                   <tr>
+                     <th scope="col">Id</th>
+                     <th scope="col"> Name</th>
+                     <th scope="col">Image</th>
+                     <th scope="col">Email</th>
+                     <th scope="col">Phone</th>
+                     <th scope="col"></th>
                     
-                    {user.imagePath ? <img src={`https://upskilling-egypt.com/${user.imagePath}`} className=" table-user-img " />:
-                    <img src={noData} className=" table-user-img" />
-                    }
-                    </td>
-                   <td>{user.email}</td>
-                   <td>{user.phoneNumber}</td>
-                   <td className="td-test position-relative"><button onClick={()=>setactionFootm("d-block")} className="border-0 bg-body"><i className="fa-solid fa-ellipsis-vertical"></i></button>
-                   </td> 
-               
-                 </tr>   
-                  )}
-                     
-                
-              </tbody>
-  </table>
-  
-  :   <img src={noData} className="" />}
-       <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                {pagesArray.map((pageNo) => 
-                  <li onClick={()=>getList(pageNo,7)} key={pageNo} className="page-item">
-                    <a className="page-link" >
-                      {pageNo}
-                    </a>
-                  </li>
-                )}
-
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-
-</div>
-  
+   
+                   </tr>
+                 </thead>
+   
+                 <tbody className="">
+                   
+                     {usersList.map((user)=>
+                      <tr className="" key={user.id}>
+                      <th scope="row">{user.id}</th>
+                      <td >{user.userName}</td>
+                      <td className="">
+                       
+                       {user.imagePath ? <img src={`https://upskilling-egypt.com/${user.imagePath}`} className=" table-user-img " />:
+                       <img src={noData} className=" table-user-img" />
+                       }
+                       </td>
+                      <td>{user.email}</td>
+                      <td>{user.phoneNumber}</td>
+                      <td className="td-test position-relative"><button onClick={()=>setactionFootm("d-block")} className="border-0 bg-body"><i className="fa-solid fa-ellipsis-vertical"></i></button>
+                      </td> 
+                  
+                    </tr>   
+                     )}
+                        
+                   
+                 </tbody>
+     </table>
+     
+     :   <img src={noData} className="" />}
+          <nav aria-label="Page navigation example">
+                 <ul className="pagination">
+                   <li className="page-item">
+                     <a className="page-link" href="#" aria-label="Previous">
+                       <span aria-hidden="true">&laquo;</span>
+                     </a>
+                   </li>
+                   {pagesArray.map((pageNo) => 
+                     <li onClick={()=>getList(pageNo,7)} key={pageNo} className="page-item">
+                       <a className="page-link" >
+                         {pageNo}
+                       </a>
+                     </li>
+                   )}
+   
+                   <li className="page-item">
+                     <a className="page-link" href="#" aria-label="Next">
+                       <span aria-hidden="true">&raquo;</span>
+                     </a>
+                   </li>
+                 </ul>
+               </nav>
+   
+   </div>
+     : <PreLoader/>} 
     </>
   );
 }

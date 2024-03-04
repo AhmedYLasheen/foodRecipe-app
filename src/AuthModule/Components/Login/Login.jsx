@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Login({ saveAdminData }) {
   const [loding, setloding] = useState(false);
   const [showPass, setshowPass] = useState('password')
+ 
   const {
     register,
     handleSubmit,
@@ -18,6 +19,7 @@ export default function Login({ saveAdminData }) {
 
   const onSupmit = (data) => {
     setloding(true);
+   
     axios
       .post("https://upskilling-egypt.com:443/api/v1/Users/Login", data)
       .then((response) => {
@@ -31,6 +33,7 @@ export default function Login({ saveAdminData }) {
         localStorage.setItem("adminToken", response.data.token);
         setloding(false);
         saveAdminData();
+       
         // console.log(response.data.token);
         navigate("/dashboard");
       })
@@ -43,7 +46,7 @@ export default function Login({ saveAdminData }) {
         setloding(false);
       });
   };
-  return (
+  return  (
     <>
       <div className="Auth-container vh-100 ">
         <div className="overlay container-fluid vh-100">
