@@ -21,7 +21,7 @@ export default function Login({ saveAdminData }) {
     setloding(true);
    
     axios
-      .post("https://upskilling-egypt.com:443/api/v1/Users/Login", data)
+      .post("https://upskilling-egypt.com:3006/api/v1/Users/Login", data)
       .then((response) => {
         setTimeout(
           () =>

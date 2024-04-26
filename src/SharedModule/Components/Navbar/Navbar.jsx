@@ -3,7 +3,7 @@ import myImg from "../../../assets/images/avtar.png";
 import logo from "../../../assets/images/logo.png";
 
 export default function Navbar({ adminData }) {
-  console.log(adminData);
+  // console.log(adminData);
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light rounded-4 m-1">
@@ -31,11 +31,11 @@ export default function Navbar({ adminData }) {
               </div>
 
               <li className="nav-item mx-3 ">
-                <h6 className="nav-link ">welcome {adminData?.userName}</h6>
+                <h6 className="nav-link "> {adminData?.userName}</h6>
               </li>
 
               <li className="nav-item  mx-3">
-                <i class="fa-solid fa-bell "></i>
+                <i className="fa-solid fa-bell "></i>
               </li>
             </ul>
           </div>

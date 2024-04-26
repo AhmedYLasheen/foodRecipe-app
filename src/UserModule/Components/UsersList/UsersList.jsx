@@ -20,7 +20,7 @@ export default function UsersList() {
     let token = localStorage.getItem("adminToken");
     try {
       const response = await axios.get(
-        "https://upskilling-egypt.com:443/api/v1/Users/",
+        "https://upskilling-egypt.com:3006/api/v1/Users/",
         { headers: { Authorization: token } ,
         params: {
           pageNumber: pageNo,

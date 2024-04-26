@@ -16,7 +16,7 @@ export default function VerifyRegister() {
   const navigate =useNavigate();
   const onSupmit = (data) => {
     axios
-      .put('https://upskilling-egypt.com:443/api/v1/Users/verify', data)
+      .put('https://upskilling-egypt.com:3006/api/v1/Users/verify', data)
       .then((response) => {
         setTimeout(()=>toast.success("Verify success",{
           position:"bottom-right"

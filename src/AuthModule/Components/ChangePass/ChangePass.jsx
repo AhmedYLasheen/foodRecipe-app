@@ -19,7 +19,7 @@ export default function ChangePass({ handleClose }) {
     let token = localStorage.getItem('adminToken');
     // console.log(data);
     axios
-      .put("https://upskilling-egypt.com:443/api/v1/Users/ChangePassword", data, { headers: { Authorization: token } })
+      .put("https://upskilling-egypt.com:3006/api/v1/Users/ChangePassword", data, { headers: { Authorization: token } })
       .then((response) => {
         
         // console.log(response);

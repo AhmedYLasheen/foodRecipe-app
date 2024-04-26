@@ -21,7 +21,7 @@ export default function FavouritesList() {
    
     try {
       let response = await axios.get(
-        "https://upskilling-egypt.com:443/api/v1/userRecipe/",
+        "https://upskilling-egypt.com:3006/api/v1/userRecipe/",
         { headers: { Authorization: token } }
       );
 
@@ -37,7 +37,7 @@ export default function FavouritesList() {
     
     try {
       let response = await axios.delete(
-        `https://upskilling-egypt.com:443/api/v1/userRecipe/${id}`,
+        `https://upskilling-egypt.com:3006/api/v1/userRecipe/${id}`,
         {  headers: { Authorization: token }}
       );
       handleClose();
@@ -85,8 +85,8 @@ export default function FavouritesList() {
       <div className="row p-4 justify-content-center">
         {favList?.length > 0 ? (
           favList.map((fav) => (
-            <div key={fav.id} className="col-md-4">
-              <div className="fav-card card m-3 position-relative">
+            <div key={fav.id} className="col-md-4 p-4 ">
+              <div className="fav-card card m-3 rounded-4 position-relative">
               <button className="border-0"  onClick={() => {
                            handleShow(), setcategoriesId(fav.id);
                          }}>
@@ -97,7 +97,7 @@ export default function FavouritesList() {
               {fav.recipe.imagePath ? (
                       <img
                         src={`https://upskilling-egypt.com/${fav.recipe?.imagePath}`}
-                        className=" w-100 "
+                        className=" w-100 rounded-4"
                       />
                     ) : (
                       <img src={noData} className="w-100" />

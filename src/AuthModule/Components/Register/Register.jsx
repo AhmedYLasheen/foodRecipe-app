@@ -37,11 +37,12 @@ export default function Register() {
     // console.log(data);
     try {
       let response = await axios.post(
-        'https://upskilling-egypt.com:443/api/v1/Users/Register',registerDataForm  );
+        'https://upskilling-egypt.com:3006/api/v1/Users/Register',registerDataForm  );
       console.log(response);
       setloding(false);
     // toast.success(addRecipese.data.message,{})
       navigate("/verifyRegiste");
+      // console.log('bnm,mnbv');
 
 
     } catch (error) {

@@ -35,7 +35,7 @@ export default function RecipesList() {
   const getList = async (pageNo, pageSize, name, tagId, catId) => {
     try {
       const response = await axios.get(
-        "https://upskilling-egypt.com:443/api/v1/Recipe/",
+        "https://upskilling-egypt.com:3006/api/v1/Recipe/",
         {
           headers: { Authorization: token },
           params: {
@@ -61,7 +61,7 @@ export default function RecipesList() {
 
   const handleDelete = (id) => {
     axios
-      .delete(`https://upskilling-egypt.com:443/api/v1/Recipe/${id}`, {
+      .delete(`https://upskilling-egypt.com:3006/api/v1/Recipe/${id}`, {
         headers: { Authorization: token },
       })
       .then((response) => {
@@ -79,7 +79,7 @@ export default function RecipesList() {
   const getCategoriesList = async () => {
     try {
       let categoriesList = await axios.get(
-        "https://upskilling-egypt.com:443/api/v1/Category/?pageSize=100&pageNumber=1",
+        "https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=100&pageNumber=1",
         { headers: { Authorization: token } }
       );
       setcategoriesList(categoriesList.data.data);
@@ -92,7 +92,7 @@ export default function RecipesList() {
   const sddToFav = async (recipeId) => {
     try {
       let response = await axios.post(
-        `https://upskilling-egypt.com:443/api/v1/userRecipe/`,
+        `https://upskilling-egypt.com:3006/api/v1/userRecipe/`,
         { recipeId: recipeId },
         { headers: { Authorization: token } }
       );
@@ -108,7 +108,7 @@ export default function RecipesList() {
   const getTagsList = async () => {
     try {
       let categoriesList = await axios.get(
-        "https://upskilling-egypt.com:443/api/v1/tag/",
+        "https://upskilling-egypt.com:3006/api/v1/tag/",
         { headers: { Authorization: token } }
       );
       setTagsList(categoriesList.data);
@@ -255,7 +255,7 @@ export default function RecipesList() {
                           <li>
                           <Link to={`/dashboard/recipe-data/${recipe.id}`}>
                          <i className="fas fa-edit text-warning mx-2 px-2 "></i>
-                      </Link>
+                          </Link>
                           </li>
                           <li>
                           <i

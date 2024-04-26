@@ -64,7 +64,7 @@ function App() {
         { path: 'recipes', element: <RecipesList /> },
         { path: 'recipe-data/:id?', element: <RecipesData /> },
         { path: 'users', element: <UsersList /> },
-        { path: 'categories', element: <CategoriesLists /> },
+        { path: 'categorie', element: <CategoriesLists /> },
         { path: 'favourites', element: <FavouritesList/> },
         
       ],

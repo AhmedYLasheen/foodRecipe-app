@@ -16,7 +16,7 @@ export default function ForgotPass() {
 
   const onSupmit = (data) => {
     axios
-      .post("https://upskilling-egypt.com:443/api/v1/Users/Reset/Request", data)
+      .post("https://upskilling-egypt.com:3006/api/v1/Users/Reset/Request", data)
       .then((response) => {
         // setTimeout(()=>toast.success("LogIn success",{
         //   position:"bottom-right"

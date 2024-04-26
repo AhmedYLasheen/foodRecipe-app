@@ -14,7 +14,7 @@ export default function RecipesData() {
   const getRecipeList = async () => {
     try {
       const response = await axios.get(
-        `https://upskilling-egypt.com:443/api/v1/Recipe/${
+        `https://upskilling-egypt.com:3006/api/v1/Recipe/${
           pass.id ? pass.id : ""
         }`,
         { headers: { Authorization: token } }
@@ -62,7 +62,7 @@ export default function RecipesData() {
     // console.log(data);
     try {
       let addRecipese = await axios.post(
-        "https://upskilling-egypt.com:443/api/v1/Recipe/",
+        "https://upskilling-egypt.com:3006/api/v1/Recipe/",
         recipeDataForm,
         { headers: { Authorization: token } }
       );
@@ -80,7 +80,7 @@ export default function RecipesData() {
     // console.log(data);
     try {
       let updateRecipese = await axios.put(
-        `https://upskilling-egypt.com:443/api/v1/Recipe/${pass.id}`,
+        `https://upskilling-egypt.com:3006/api/v1/Recipe/${pass.id}`,
         recipeDataForm,
         { headers: { Authorization: token } }
       );
@@ -97,7 +97,7 @@ export default function RecipesData() {
   const getCategoriesList = async () => {
     try {
       let categoriesList = await axios.get(
-        "https://upskilling-egypt.com:443/api/v1/Category/?pageSize=10&pageNumber=1",
+        "https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=10&pageNumber=1",
         { headers: { Authorization: token } }
       );
       setcategoriesList(categoriesList.data.data);
@@ -112,7 +112,7 @@ export default function RecipesData() {
   const getTagsList = async () => {
     try {
       let categoriesList = await axios.get(
-        "https://upskilling-egypt.com:443/api/v1/tag/",
+        "https://upskilling-egypt.com:3006/api/v1/tag/",
         { headers: { Authorization: token } }
       );
       setTagsList(categoriesList.data);
